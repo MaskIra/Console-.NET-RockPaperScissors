@@ -13,7 +13,7 @@ namespace rps
         public Key(int keyLength, string computerMove)
         {
             GenerateSalt(keyLength);
-            ComputeHMACSHA5256(computerMove);
+            ComputeHMACSHA256(computerMove);
         }
 
         private void GenerateSalt(int length)
@@ -22,7 +22,7 @@ namespace rps
             new RNGCryptoServiceProvider().GetBytes(salt);
         }
 
-        private void ComputeHMACSHA5256(string computerMove)
+        private void ComputeHMACSHA256(string computerMove)
         {
             using (var HMAC = new HMACSHA256(salt))
             {
