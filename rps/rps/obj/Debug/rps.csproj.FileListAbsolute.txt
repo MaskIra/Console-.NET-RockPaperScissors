@@ -1,7 +1,0 @@
-C:\courses\rps\rps\bin\Debug\rps.exe.config
-C:\courses\rps\rps\bin\Debug\rps.exe
-C:\courses\rps\rps\bin\Debug\rps.pdb
-C:\courses\rps\rps\obj\Debug\rps.csproj.AssemblyReference.cache
-C:\courses\rps\rps\obj\Debug\rps.csproj.CoreCompileInputs.cache
-C:\courses\rps\rps\obj\Debug\rps.exe
-C:\courses\rps\rps\obj\Debug\rps.pdb
