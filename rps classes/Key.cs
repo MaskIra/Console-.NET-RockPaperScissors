@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 
@@ -14,34 +10,32 @@ namespace rps
         private byte[] salt;
         private byte[] hash;
 
-        public Key(int key_length, string computer_move)
+        public Key(int keyLength, string computerMove)
         {
-            GenerateSalt(key_length);
-            ComputeHMACSHA512(computer_move);
+            GenerateSalt(keyLength);
+            ComputeHMACSHA5256(computerMove);
         }
 
         private void GenerateSalt(int length)
         {
-            RNGCryptoServiceProvider p = new RNGCryptoServiceProvider();
             salt = new byte[length];
-            p.GetBytes(salt);
+            new RNGCryptoServiceProvider().GetBytes(salt);
         }
 
-        private void ComputeHMACSHA512(string computer_move)
+        private void ComputeHMACSHA5256(string computerMove)
         {
-            using (var HMAC = new HMACSHA512(salt))
+            using (var HMAC = new HMACSHA256(salt))
             {
-                hash = HMAC.ComputeHash(Encoding.Default.GetBytes(computer_move));
+                hash = HMAC.ComputeHash(Encoding.Default.GetBytes(computerMove));
             }
         }
 
-        public byte[] getKey() { return salt; }
-        public byte[] gethash() { return hash; }
+        public byte[] GetKey() { return salt; }
+        public byte[] Gethash() { return hash; }
 
         public static string GetBytesToString(byte[] value)
         {
-            SoapHexBinary shb = new SoapHexBinary(value);
-            return shb.ToString();
+            return new SoapHexBinary(value).ToString();
         }
     }
 }

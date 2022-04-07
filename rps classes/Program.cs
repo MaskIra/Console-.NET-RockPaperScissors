@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace rps
 {
@@ -30,7 +27,7 @@ namespace rps
                     Key key = new Key(32, args[Cmove]);
 
                     // show HMAC
-                    Console.WriteLine("HMAC: " + Key.GetBytesToString(key.gethash()));
+                    Console.WriteLine("HMAC: " + Key.GetBytesToString(key.Gethash()));
 
                     // menu
                     Console.WriteLine("Available moves:");
@@ -45,7 +42,7 @@ namespace rps
                     if (!int.TryParse(Console.ReadLine(), out Umove) || Umove < 0 || Umove > qty)
                     {
                         if (Umove == -1)
-                            Table.show(args);
+                            Table.Display(args);
                         step--;
                         continue;
                     }
@@ -54,7 +51,7 @@ namespace rps
                     if (Umove == 0)
                     {
                         Console.WriteLine("Are you sure? (yes)");
-                        if (Console.ReadLine().Trim() == "yes")
+                        if (Console.ReadLine().Trim().ToLower() == "yes")
                             return;
                     }
 
@@ -63,7 +60,7 @@ namespace rps
                     Console.WriteLine("Your move: " + args[Umove]);
                     Console.WriteLine("Computer move: " + args[Cmove]);
 
-                    switch (Rules.move(Umove, Cmove, qty))
+                    switch (Rules.GetMoveResult(Umove, Cmove, qty))
                     {
                         case 0:
                             Console.WriteLine("You have a draw!");
@@ -76,14 +73,13 @@ namespace rps
                             break;
                     }
 
-                    Console.WriteLine("HMAC key: " + Key.GetBytesToString(key.getKey()));
+                    Console.WriteLine("HMAC key: " + Key.GetBytesToString(key.GetKey()));
                 }
-            Console.ReadLine();
         }
+
         public static int MakeMove(int max)
         {
-            Random rnd = new Random();
-            return rnd.Next(max);
+            return new Random().Next(max);
         }
     }
 }

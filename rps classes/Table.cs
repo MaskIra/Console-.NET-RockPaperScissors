@@ -1,37 +1,41 @@
-﻿using System;
+﻿using ConsoleTables;
 
 namespace rps
 {
     static class Table
     {
-        static public void show(string[] tools)
+        static public void Display(string[] tools)
         {
             int n = tools.Length;
             int half = n / 2;
+            string[] line = new string[n + 1];
 
             // header
-            Console.Write(String.Format(" {0,-10} ", ""));
+            line[0] = "-";
             for (int i = 0; i < n; i++)
-                Console.Write(String.Format(" {0,-10} ", tools[i]));
-            Console.WriteLine();
+                line[i + 1] = tools[i];
+            var table = new ConsoleTable(line);
 
-            // table
+            // data
             for (int i = 0; i < n; i++)
             {
-                Console.Write(String.Format(" {0,-10} ", tools[i]));
+                line[0] = tools[i];
                 for (int j = 0; j < n; j++)
                 {
                     if (i == j)
-                        Console.Write(String.Format(" {0,-10} ", "draw"));
+                        line[j + 1] = "draw";
                     else if (i == half && j < i
-                        || i - half < 0  && (j < i || j > i + half)
+                        || i - half < 0 && (j < i || j > i + half)
                         || i + half >= n && (j >= i - half && j < i))
-                        Console.Write(String.Format(" {0,-10} ", "win"));
+                        line[j + 1] = "win";
                     else
-                        Console.Write(String.Format(" {0,-10} ", "lose"));
+                        line[j + 1] = "lose";
                 }
-                Console.WriteLine();
+                table.AddRow((string[])line.Clone());
             }
+
+            // output
+            table.Write(Format.Alternative);
         }
     }
 }
